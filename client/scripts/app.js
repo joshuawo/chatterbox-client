@@ -19,6 +19,8 @@ var app = {
   init : function(){  
     $('#submitPost').on('click',app.messageMaker);
     $('#submitRoom').on('click', app.addRoom);
+    $('#main').on('click', app.addFriend);
+    $('#send .submit').on('submit', app.handleSubmit);
   },
   send : function(message){
     $.ajax({
@@ -39,15 +41,23 @@ var app = {
   },
 
   addMessage: function(message){
-    $('#chats').append('<div>' + message.text + '</div>');
+    $('#chats').append('<div class = "message"><div class = "text">' + message.text + '</div><div class = "username"> '+ message.username +'</div></div>');
 
   },
 
   addRoom: function(){
     $('#roomSelect').append('<div>' + $("#roomName").val() + '</div>');
   },
+
+  addFriend : function(){
+  },
+
   clearMessages : function(){
     $('#chats').empty();
+  },
+
+  handleSubmit : function(){
+
   },
 
   fetch : function(){
