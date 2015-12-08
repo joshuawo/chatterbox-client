@@ -4,6 +4,8 @@ var message = {};
 
 var resultArray = [];
 
+var rooms = {};
+
 var escapeHtml = function(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
@@ -27,7 +29,7 @@ var app = {
       roomname : escapeHtml($("#roomName").val()) || ''
     };
 
-
+    console.log(message);
     app.send(message);
     app.addMessage(message);
 
@@ -63,7 +65,10 @@ var app = {
   },
 
   addRoom: function(){
-    $('#roomSelect').append('<div>' + $("#roomName").val() + '</div>');
+    debugger;
+    app.messageMaker();
+    app.fetch();
+    $('#room').append('<option>'+ unescapeHtml($('#roomName').val()) +'</option>');
   },
 
   addFriend : function(){
@@ -84,9 +89,20 @@ var app = {
       type: 'GET',
       contentType: 'application/json',
       success: function (data) {
+        
         resultArray = data.results;
         for(var i = 0; i < resultArray.length; i++){
-          $('#chats').append('<div class = "message"><div class = "text">' + unescapeHtml(resultArray[i].text) + '</div><div class = "username"> '+ unescapeHtml(resultArray[i].username) +'</div></div>')
+          if( unescapeHtml(resultArray[i].text) === 'undefined' || unescapeHtml(resultArray[i].username) === 'undefined' || unescapeHtml(resultArray[i].text) === '' || unescapeHtml(resultArray[i].username) === ''){
+            continue;
+          } else {
+            $('#chats').append('<div class = "message row"><div class = "text col-md-1"></div><div class = "text col-md-6">' + unescapeHtml(resultArray[i].text) + '</div><div class = "username col-md-4"> '+ unescapeHtml(resultArray[i].username) +'</div><div class = "text col-md-1"></div></div>');
+    
+            rooms[unescapeHtml(resultArray[i].roomname)] = rooms[unescapeHtml(resultArray[i].roomname)] + 1 || 1; 
+          }
+        }
+
+        for(var key in rooms){
+          $('.room').append('<option>'+key+'</option>');
         }
         //console.log(resultArray);
       },

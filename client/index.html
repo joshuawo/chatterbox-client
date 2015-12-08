@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>chatterbox</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -13,15 +14,20 @@
     <script src="scripts/app.js"></script>
   </head>
   <body>
-    <div id="main">
+    <div id="main" class = "container">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
       <form method = "post">
         <input type = "text" id = "roomName">
-        <button id = "submitRoom">Create room</button>
+        <!--<button id = "submitRoom">Create room</button>-->
       </form>
-      <div id='roomSelect'>
-        
+      <div id='roomSelect' class = "row">
+        <div class="col-md-2">Select Room: </div>
+        <div class="col-md-4">
+          <select class="form-control room">
+          </select>
+        </div>
+        <div class="col-md-6"></div>
       </div>
       <form method = "post">
         <input type = "text" id = "submitText">
@@ -33,6 +39,6 @@
         <input type="submit" class = "submit" value="Submit">
       </form>
     </div>
-    <div id="chats"></div>
+    <div id="chats" class="row"></div>
   </body>
 </html>
