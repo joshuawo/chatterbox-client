@@ -136,7 +136,7 @@ var app = {
 
   loadFriendChat : function(name){
     app.clearMessages();
-    $("'."+name+"'").show();
+    $("."+name).show();
     // console.log(resultArray);
     // for(var i = 0; i < resultArray.length; i++){
     //   if( unescapeHtml(resultArray[i].username) === name ){
@@ -149,7 +149,7 @@ var app = {
 
   loadRoomChat : function(room){
     app.clearMessages();
-    var roomClass = "'."+room+"'";
+    var roomClass = "."+room;
     console.log(roomClass);
     $(roomClass).show();
     // for(var i = 0; i < resultArray.length; i++){
