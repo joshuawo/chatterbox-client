@@ -92,12 +92,11 @@ var app = {
         
         resultArray = data.results;
         for(var i = 0; i < resultArray.length; i++){
+          rooms[unescapeHtml(resultArray[i].roomname)] = rooms[unescapeHtml(resultArray[i].roomname)] + 1 || 1; 
           if( unescapeHtml(resultArray[i].text) === 'undefined' || unescapeHtml(resultArray[i].username) === 'undefined' || unescapeHtml(resultArray[i].text) === '' || unescapeHtml(resultArray[i].username) === ''){
             continue;
           } else {
             $('#chats').append('<div class = "message row"><div class = "text col-md-1"></div><div class = "text col-md-6">' + unescapeHtml(resultArray[i].text) + '</div><div class = "username col-md-4"> '+ unescapeHtml(resultArray[i].username) +'</div><div class = "text col-md-1"></div></div>');
-    
-            rooms[unescapeHtml(resultArray[i].roomname)] = rooms[unescapeHtml(resultArray[i].roomname)] + 1 || 1; 
           }
         }
 
@@ -113,7 +112,25 @@ var app = {
       
     });
 
+  },
+
+  loadChat : function(nameFilter){
+    if(nameFilter){
+        for(var i = 0; i < resultArray.length; i++){
+          if( unescapeHtml(resultArray[i].text) === 'undefined' || unescapeHtml(resultArray[i].username) === 'undefined' || unescapeHtml(resultArray[i].text) === '' || unescapeHtml(resultArray[i].username) === ''){
+            continue;
+          } else if (unescapeHtml(resultArray[i].username) === nameFilter ) {
+            $('#chats').append('<div class = "message row"><div class = "text col-md-1"></div><div class = "text col-md-6">' + unescapeHtml(resultArray[i].text) + '</div><div class = "username col-md-4"> '+ unescapeHtml(resultArray[i].username) +'</div><div class = "text col-md-1"></div></div>');
+            rooms[unescapeHtml(resultArray[i].roomname)] = rooms[unescapeHtml(resultArray[i].roomname)] + 1 || 1; 
+          } else{
+            $('#chats').append('<div class = "message row"><div class = "text col-md-1"></div><div class = "text col-md-6">' + unescapeHtml(resultArray[i].text) + '</div><div class = "username col-md-4"> '+ unescapeHtml(resultArray[i].username) +'</div><div class = "text col-md-1"></div></div>');
+            rooms[unescapeHtml(resultArray[i].roomname)] = rooms[unescapeHtml(resultArray[i].roomname)] + 1 || 1;  
+          }
+        }
+    }
+
   }
+
 
 };
 
