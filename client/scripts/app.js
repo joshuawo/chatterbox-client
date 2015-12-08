@@ -2,14 +2,31 @@
 
 var message = {};
 
+var resultArray = [];
+
+var escapeHtml = function(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+};
+
+// UNSAFE with unsafe strings; only use on previously-escaped ones!
+var unescapeHtml = function(escapedStr) {
+    var div = document.createElement('div');
+    div.innerHTML = escapedStr;
+    var child = div.childNodes[0];
+    return child ? child.nodeValue : '';
+};
+
 var app = {
   server : 'https://api.parse.com/1/classes/chatterbox',
   messageMaker : function(){
     message = {
       username : document.URL.substr(document.URL.indexOf('username=')+9),
-      text : $('#submitText').val(),
-      roomname : $("#roomName").val() || ''
+      text : escapeHtml($('#submitText').val()),
+      roomname : escapeHtml($("#roomName").val()) || ''
     };
+
 
     app.send(message);
     app.addMessage(message);
@@ -64,7 +81,19 @@ var app = {
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
       url: 'https://api.parse.com/1/classes/chatterbox',
-      type: 'GET'
+      type: 'GET',
+      contentType: 'application/json',
+      success: function (data) {
+        resultArray = data.results;
+        for(var i = 0; i < resultArray.length; i++){
+          $('#chats').append('<div class = "message"><div class = "text">' + unescapeHtml(resultArray[i].text) + '</div><div class = "username"> '+ unescapeHtml(resultArray[i].username) +'</div></div>')
+        }
+        //console.log(resultArray);
+      },
+      error: function (data) {
+        // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+        console.error('chatterbox: Failed to send message');
+      }
       
     });
 
@@ -74,4 +103,5 @@ var app = {
 
 $(document).ready(function(){
   app.init();
+  app.fetch();
 });
