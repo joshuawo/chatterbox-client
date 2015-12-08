@@ -93,7 +93,7 @@ var app = {
   },
 
   addMessage: function(message){
-    $('#chats').append('<div class = "message"><div class = "text">' + message.text + '</div><div class = "username">'+ message.username +'</div></div>');
+    // $('#chats').append('<div class = "message"><div class = "text">' + message.text + '</div><div class = "username">'+ message.username +'</div></div>');
 
   },
 
