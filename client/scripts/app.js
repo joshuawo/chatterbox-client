@@ -23,11 +23,10 @@ var app = {
   messageMaker : function(){
     message = {
       username : document.URL.substr(document.URL.indexOf('username=')+9),
-      text : unescapeHtml($('#submitText').val()),
-      roomname : escapeHtml($("#roomName").val())
+      text : escapeHtml($('#submitText').val()),
+      roomname : escapeHtml($("#roomName").val()) || $('.room :selected').text()
     };
-    console.log(message.roomname);
-    // unescapeHtml($("#roomName").val()) || 
+ 
     app.send(message);
     app.addMessage(message);
 
@@ -36,7 +35,6 @@ var app = {
   init : function(){  
     $('#submitPost').on('click',app.messageMaker);
     $('#submitRoom').on('click', app.addRoom);
-    // $('#chats').on('click', app.addFriend);
 
     $('body').on('click', '.username', function(){
       var name = $(this).text();
@@ -46,7 +44,6 @@ var app = {
 
     $(".room").change(function () {
       var room = $('option:selected', $(this)).text();
-      //console.log(room);
       app.loadRoomChat(room);
       roomname = room;
     });
@@ -93,13 +90,17 @@ var app = {
   },
 
   addMessage: function(message){
-
+    var roomname = $('.room :selected').text();
+    app.loadRoomChat(roomname);
   },
 
   addRoom: function(){
     app.messageMaker();
     app.fetch();
     app.clearMessages();
+    var room = escapeHtml($("#roomName").val());
+    console.log(room);
+    app.loadRoomChat(room);
     // $("'."+unescapeHtml($('#roomName').val())+"'").show();
     // roomname = unescapeHtml($('#roomName').val());
   },
@@ -136,6 +137,7 @@ var app = {
 
   loadRoomChat : function(room){
     app.clearMessages();
+    console.log(room);
     $("."+room).show();
   },
 
