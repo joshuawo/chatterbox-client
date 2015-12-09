@@ -1,5 +1,5 @@
 body {
-    background: #eee;
+    background: #727070;
     text-align: center;
     padding: 0 25px;
     font-family: arial, sans-serif;
@@ -9,7 +9,7 @@ body {
     width: 75%;
     margin: auto;
     text-align: left;
-    background: white;
+    background: #727070;
     padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
@@ -46,6 +46,10 @@ body {
     line-height: 13px;
 }
 
+#main {
+    background: #e1dddd;
+}
+
 form {
     padding: 20px;
     padding-left: 0;
@@ -58,6 +62,7 @@ form input[type=text] {
     font-size: 12px;
     padding: 5px;
 }
+
 .username {
     color: blue;
 }
@@ -84,3 +89,27 @@ form input[type=text] {
 .spinner img {
     padding: 10px;
 }
+
+.text {
+    padding: 5px;
+    font-size: 15px;
+}
+
+.username {
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.message:nth-of-type(odd) {
+    background: #d3d3d3;
+}
+
+.message:nth-of-type(even) {
+    background: white;
+}
+
+.title{
+    color: #2f1414;
+    font-size: 50px;
+}
+
